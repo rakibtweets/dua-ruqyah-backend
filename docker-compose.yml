@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # Backend service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dua-ruqyah-server
+    container_name: dua-ruqyah-server-container
+    ports:
+      - '5000:5000'
+
+    stdin_open: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+# Define networks
+networks:
+  app-network:
