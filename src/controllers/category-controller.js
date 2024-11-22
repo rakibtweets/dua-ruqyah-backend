@@ -26,7 +26,7 @@ const getSubcategories = (req, res, next) => {
     } else if (rows.length === 0) {
       res.status(404).json({ message: 'No subcategories found.' });
     } else {
-      console.log('getSubcategories  rows:', rows);
+      console.log('getSubcategories:');
       res.json(rows);
     }
   });
@@ -46,7 +46,7 @@ const getDuasByCategoryId = (req, res, next) => {
     } else if (rows.length === 0) {
       res.status(404).json({ message: 'No subcategories found.' });
     } else {
-      console.log('getSubcategories  rows:', rows);
+      console.log('getDuasByCategoryId');
       res.json(rows);
     }
   });
@@ -55,7 +55,6 @@ const getDuasByCategoryId = (req, res, next) => {
 // Get duas for a specific subcategory id
 const getDuasBySubcategoryId = (req, res, next) => {
   const subcategoryId = req.params.id;
-  console.log('getDuas  subcategoryId:', subcategoryId);
 
   const query = 'SELECT * FROM dua WHERE subcat_id = ?';
 
@@ -67,7 +66,7 @@ const getDuasBySubcategoryId = (req, res, next) => {
     } else if (rows.length === 0) {
       res.status(404).json({ message: 'No duas found.' });
     } else {
-      console.log('getDuas  rows:', rows);
+      console.log('getDuasBySubcategoryId');
       res.json(rows);
     }
   });
@@ -78,7 +77,27 @@ const getDuas = (req, res, next) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
-      // console.log('getDuas  rows:', rows);
+      // console.log('/routes/duas ');
+      res.json(rows);
+    }
+  });
+};
+
+// get duas by dua id
+const getDuasById = (req, res, next) => {
+  const duaId = req.params.id;
+
+  const query = 'SELECT * FROM dua WHERE id = ?';
+
+  const params = duaId ? [duaId] : [];
+  // Execute the database query
+  db.all(query, params, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (rows.length === 0) {
+      res.status(404).json({ message: 'No duas found.' });
+    } else {
+      console.log('getDuasById');
       res.json(rows);
     }
   });
@@ -89,5 +108,6 @@ module.exports = {
   getSubcategories,
   getDuasBySubcategoryId,
   getDuasByCategoryId,
-  getDuas
+  getDuas,
+  getDuasById
 };
