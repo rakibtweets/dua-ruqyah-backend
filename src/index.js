@@ -9,6 +9,10 @@ const {
 } = require('./controllers/category-controller');
 const PORT = process.env.PORT || 5000;
 
+app.use('/', (req, res) => {
+  res.send('Welcome to Dua API');
+});
+
 // get categories
 app.get('/categories', getCategories);
 
